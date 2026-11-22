@@ -518,7 +518,9 @@ enum EntityPageAppearance {
 
         // 第三版：专辑 / 歌单页上把那两排藏掉。
         // 见 `EntityPageCurationHide`（判据、日志、还原都在那一个文件里）。
-        if target.kind != .artist {
+        // Gated on "Hide some of Spotify's buttons" (off by default): the Add / Edit / Sort /
+        // Name & details row is a real control, so it stays unless the user asks to hide it.
+        if target.kind != .artist, UserDefaults.entityPageHideChrome {
             EntityPageCurationHide.apply(to: target.page)
         }
 

@@ -268,7 +268,8 @@ enum EntityPageSectionDrop {
 
         // 判据从"整行那条 id"放宽到**模块前缀**（见 `curationFragment`）——
         // 同行里的按钮是 `PlaylistCuration.AddButton`，只认整行 id 时一行都命不中。
-        var drop = containsMarker(cell, curationFragment)
+        // Same switch as `EntityPageCurationHide`: keep the Sort row unless hiding buttons is on.
+        var drop = UserDefaults.entityPageHideChrome && containsMarker(cell, curationFragment)
         if !drop, root.accessibilityIdentifier == "creator-page" {
             drop = likedSongsMarkers.contains { containsMarker(cell, $0) }
             // 「关于艺人」**先读到正文再折**。
